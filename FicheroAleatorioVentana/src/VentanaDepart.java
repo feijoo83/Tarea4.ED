@@ -11,14 +11,25 @@ import java.io.RandomAccessFile;
 
 import javax.swing.*;
 
+/**
+ * En esta clase se muestra una ventana en la que elegir varias opciones por medio de botones, cada accion que realice el programa dependera del boton pulsado
+ * 
+ * @author feijoo83
+ * @version 1.2
+ *
+ */
+
 public class VentanaDepart extends JFrame implements ActionListener  {
 	
-private static final String NOEXISTEDEPART = "DEPARTAMENTO NO EXISTE.";
+private static final String NOEXISTEDEPART = "DEPARTAMENTO NO EXISTE."; //Constante Local extraída de "DEPARTAMENTO NO EXISTE"
 private static final long serialVersionUID = 1L;
 JTextField num=new JTextField(10);
 JTextField nombre=new JTextField(25);
 JTextField loc=new JTextField(25);
 
+/**
+ * A partir de aqui se crea la ventana y los botones
+ */
 
 JLabel mensaje=new JLabel(" ----------------------------- ");
 JLabel titulo=new JLabel ("GESTI�N DE DEPARTAMENTOS.");
@@ -96,16 +107,21 @@ public VentanaDepart(JFrame f )
 	ver.addActionListener(this);
 }
 
+/**
+ * Una vez seleccionada la opcion deseada pasamos a una parte del codigo u otra, nos encontramos las llamadas a metodos creados en la refactorizacion
+ * Estos son: "altadepart", "consuldepart", "borradepart" y "modifdepart"
+ */
+
 public void actionPerformed(ActionEvent e) 
 {   int dep, confirm;
-	existedepart = "DEPARTAMENTO EXISTE.";
+	existedepart = "DEPARTAMENTO EXISTE.";                       //Variable Local extraída de "DEPARTAMENTO EXISTE." y convertida en un atributo de la clase
 	if (e.getSource() == balta) { //SE PULSA EL BOTON alta   	
 		mensaje.setText(" has pulsado el boton alta");   
 		try {
-	    	  altadepart();	
+	    	  altadepart();	//Llamada a método creado en refactorización
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
-	         {depar_error = "DEPARTAMENTO ERR�NEO.";
+	         {depar_error = "DEPARTAMENTO ERR�NEO.";                     //Variable Local extraída de "DEPARTAMENTO ERRONEO." y convertida en un atributo de la clase
 			mensaje.setText(depar_error);} 
 	       catch (IOException ex2) {
 	    	   mensaje.setText("ERRORRR EN EL FICHERO. Fichero no existe. (ALTA)");
@@ -118,7 +134,7 @@ public void actionPerformed(ActionEvent e)
 	if (e.getSource() == consu) { //SE PULSA EL BOTON  consultar  	
 		mensaje.setText(" has pulsado el boton alta");   
 		try {
-	    	  consuldepart();	
+	    	  consuldepart();	//Llamada a método creado en refactorización
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
 	           {mensaje.setText("DEPARTAMENTO ERR�NEO");}
@@ -130,7 +146,7 @@ public void actionPerformed(ActionEvent e)
 	if (e.getSource() == borra) { //SE PULSA EL BOTON  borrar  	
 		mensaje.setText(" has pulsado el boton Borrar");   
 		try {
-	    	  borradepart();	
+	    	  borradepart();	//Llamada a método creado en refactorización
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
 	           {mensaje.setText("DEPARTAMENTO ERR�NEO");} 
@@ -140,7 +156,7 @@ public void actionPerformed(ActionEvent e)
 	if (e.getSource() == modif) { //SE PULSA EL BOTON  modificar  	
 		mensaje.setText(" has pulsado el boton Modificar.");   
 		try {
-	    	  modifdepart();	
+	    	  modifdepart();	//Llamada a método creado en refactorización
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
 	           {mensaje.setText("DEPARTAMENTO ERR�NEO");} 
@@ -167,7 +183,12 @@ public void actionPerformed(ActionEvent e)
 	}
 }
 
-private void modifdepart() throws IOException {
+/**
+ * El metodo "modifdepart" cambia los datos guardados en un departamento por los nuevos datos introducidos por el usuario
+ * @throws IOException
+ */
+
+public void modifdepart() throws IOException {
 	int dep;
 	int confirm;
 	dep=Integer.parseInt(num.getText());
@@ -190,7 +211,12 @@ private void modifdepart() throws IOException {
 	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
 }
 
-private void borradepart() throws IOException {
+/**
+ * El metodo "borradepart" elimina los datos del departamento que indique el usuario y borra el departamento
+ * @throws IOException
+ */
+
+public void borradepart() throws IOException {
 	int dep;
 	int confirm;
 	dep=Integer.parseInt(num.getText());
@@ -215,7 +241,12 @@ private void borradepart() throws IOException {
 	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
 }
 
-private void consuldepart() throws IOException {
+/**
+ * El metodo "consuldepart" nos muestra por pantalla los datos guardados de un departamento que nos indique el usuario
+ * @throws IOException
+ */
+
+public void consuldepart() throws IOException {
 	int dep;
 	dep=Integer.parseInt(num.getText());
 	  if (dep >0)
@@ -229,7 +260,12 @@ private void consuldepart() throws IOException {
 	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
 }
 
-private void altadepart() throws IOException {
+/**
+ * Por ultimo el metodo "altadepart" crea un nuevo departamento y guarda los datos indicados por el usuario.
+ * @throws IOException
+ */
+
+public void altadepart() throws IOException {
 	int dep;
 	dep=Integer.parseInt(num.getText());
 	  if (dep >0)
@@ -242,6 +278,11 @@ private void altadepart() throws IOException {
 	         }
 	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");
 }
+
+/**
+ * En este ultimo metodo nos muestra en pantalla los datos del departamento que haya seleccionado el usuario
+ * @throws IOException
+ */
 
 public  void verporconsola() throws IOException {     
   String  nom="",loc=""; int dep=0; long pos;
